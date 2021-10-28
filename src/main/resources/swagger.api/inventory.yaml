@@ -1,0 +1,88 @@
+openapi: 3.0.0
+info:
+  title: Inventory API
+  description: FOLIO Inventory API
+  version: v1
+servers:
+  - url: http://localhost/
+paths:
+  /items/:
+    get:
+      description: Get items
+      operationId: getItems
+      parameters:
+        - name: barcode
+          description: Item barcode
+          in: query
+          schema:
+            type: string
+        - $ref: '#/components/parameters/includeHoldingsRecord'
+        - $ref: '#/components/parameters/includeInstance'
+      responses:
+        "200":
+          description: Items list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/items"
+        "500":
+          $ref: "#/components/responses/trait_validate_500"
+  /items/{id}:
+    get:
+      description: Get item by id
+      operationId: getItemById
+      parameters:
+        - name: id
+          description: Item identifier
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Items list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/item"
+        "404":
+          $ref: "#/components/responses/trait_validate_404"
+        "500":
+          $ref: "#/components/responses/trait_validate_500"
+components:
+  schemas:
+    item:
+      $ref: schemas/inventory/item.json
+    items:
+      $ref: schemas/inventory/items.json
+    error:
+      $ref: schemas/common/error.json
+  parameters:
+    includeHoldingsRecord:
+      name: includeHoldingsRecord
+      description: add holdings record data to response
+      in: query
+      schema:
+        type: boolean
+        default: false
+    includeInstance:
+      name: includeInstance
+      description: add instance data to response
+      in: query
+      schema:
+        type: boolean
+        default: false
+  responses:
+    trait_validate_404:
+      description: Not found error
+      content:
+        application/json:
+          example: examples/error.sample
+          schema:
+            $ref: "#/components/schemas/error"
+    trait_validate_500:
+      description: Internal server error
+      content:
+        text/plain:
+          schema:
+            $ref: "#/components/schemas/error"
