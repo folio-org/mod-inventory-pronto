@@ -98,7 +98,7 @@
       "description": "List of dereferenced service points",
       "items": {
         "type": "object",
-        "$ref": "servicepoint.json"
+        "$ref": "servicePoint.json"
       },
       "readonly": true,
       "folio:isVirtual": true,
