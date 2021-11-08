@@ -45,7 +45,6 @@
       "$ref": "location.json"
     },
     "effectiveLocation": {
-      "_comment": "do we need this???",
       "type": "string",
       "description": "Effective location is calculated by the system based on the values in the permanent and temporary locationId fields.",
       "$ref": "location.json"

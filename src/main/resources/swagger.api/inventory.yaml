@@ -16,8 +16,6 @@ paths:
           in: query
           schema:
             type: string
-        - $ref: '#/components/parameters/includeHoldingsRecord'
-        - $ref: '#/components/parameters/includeInstance'
       responses:
         "200":
           description: Items list
@@ -57,21 +55,6 @@ components:
       $ref: schemas/inventory/items.json
     error:
       $ref: schemas/common/error.json
-  parameters:
-    includeHoldingsRecord:
-      name: includeHoldingsRecord
-      description: add holdings record data to response
-      in: query
-      schema:
-        type: boolean
-        default: false
-    includeInstance:
-      name: includeInstance
-      description: add instance data to response
-      in: query
-      schema:
-        type: boolean
-        default: false
   responses:
     trait_validate_404:
       description: Not found error

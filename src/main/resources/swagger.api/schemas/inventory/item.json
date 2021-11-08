@@ -312,7 +312,6 @@
       "$ref": "location.json"
     },
     "effectiveLocation": {
-      "_comment": "do we need this???",
       "type": "string",
       "description": "Read only current home location for the item.",
       "$ref": "location.json"
@@ -405,6 +404,8 @@
   "required": [
     "materialType",
     "permanentLoanType",
-    "status"
+    "status",
+    "holdingsRecord",
+    "instance"
   ]
 }

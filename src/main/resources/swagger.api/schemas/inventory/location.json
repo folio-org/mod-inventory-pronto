@@ -81,31 +81,13 @@
       "description": "Dereferenced object for primary service point. This should really just be called 'primaryServicePoint', but the field containing the ID of this object has that name -- it should really be called 'primaryServicePointId' -- so we need something different for this one.",
       "$ref": "servicePoint.json"
     },
-    "servicePointIds": {
-      "description": "All service points that this (shelf) location has.",
-      "type": "array",
-      "items": {
-        "description": "The UUID of a service point that belongs to this (shelf) location.",
-        "type": "string",
-        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-        "not": {
-          "type": "null"
-        }
-      }
-    },
     "servicePoints": {
       "type": "array",
       "description": "List of dereferenced service points",
       "items": {
         "type": "object",
         "$ref": "servicePoint.json"
-      },
-      "readonly": true,
-      "folio:isVirtual": true,
-      "folio:linkBase": "service-points",
-      "folio:linkFromField": "servicePointIds",
-      "folio:linkToField": "id",
-      "folio:includedElement": "servicepoints"
+      }
     },
     "metadata": {
       "type": "object",
