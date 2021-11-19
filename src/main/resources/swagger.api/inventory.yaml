@@ -6,10 +6,10 @@ info:
 servers:
   - url: http://localhost/
 paths:
-  /items/:
+  /circluationItems/:
     get:
       description: Get items
-      operationId: getItems
+      operationId: getCirculationItems
       parameters:
         - name: barcode
           description: Item barcode
@@ -22,13 +22,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/items"
+                $ref: "#/components/schemas/circulationItems"
         "500":
           $ref: "#/components/responses/trait_validate_500"
-  /items/{id}:
+  /circluationItems/{id}:
     get:
-      description: Get item by id
-      operationId: getItemById
+      description: Get circulation item by id
+      operationId: getCirculationItemById
       parameters:
         - name: id
           description: Item identifier
@@ -42,17 +42,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/item"
+                $ref: "#/components/schemas/circulationItem"
         "404":
           $ref: "#/components/responses/trait_validate_404"
         "500":
           $ref: "#/components/responses/trait_validate_500"
 components:
   schemas:
-    item:
-      $ref: schemas/inventory/item.json
-    items:
-      $ref: schemas/inventory/items.json
+    circulationItem:
+      $ref: schemas/inventory/circulationItem.json
+    circulationItems:
+      $ref: schemas/inventory/circulationItems.json
     error:
       $ref: schemas/common/error.json
   responses:

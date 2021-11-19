@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "A collection of circulation item records",
+  "type": "object",
+  "properties": {
+    "items": {
+      "description": "List of circulation item records",
+      "id": "items",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "circulationItem.json"
+      }
+    },
+    "totalRecords": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "items",
+    "totalRecords"
+  ]
+}
