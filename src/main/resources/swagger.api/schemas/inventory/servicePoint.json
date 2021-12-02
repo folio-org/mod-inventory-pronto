@@ -9,11 +9,11 @@
     },
     "name": {
       "type": "string",
-      "description": "service-point name, a required field"
+      "description" : "service-point name, a required field"
     },
     "code": {
       "type": "string",
-      "description": "service-point code, a required field"
+      "description" : "service-point code, a required field"
     },
     "discoveryDisplayName": {
       "type": "string",
@@ -21,7 +21,7 @@
     },
     "description": {
       "type": "string",
-      "description": "description of the service-point"
+      "description" : "description of the service-point"
     },
     "shelvingLagTime": {
       "type": "integer",
@@ -31,9 +31,9 @@
       "type": "boolean",
       "description": "indicates whether or not the service point is a pickup location"
     },
-    "holdShelfExpiryPeriod": {
+    "holdShelfExpiryPeriod" :{
       "type": "object",
-      "$ref": "../common/timePeriod.json",
+      "$ref": "timePeriod.json",
       "description": "expiration period for items on the hold shelf at the service point"
     },
     "staffSlips": {
@@ -44,7 +44,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "$ref": "../common/uuid.json",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
             "description": "The ID of the staff slip"
           },
           "printByDefault": {

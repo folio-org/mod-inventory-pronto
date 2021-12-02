@@ -3,169 +3,59 @@
   "description": "A circulation item - aggregation of item, instance and holding",
   "type": "object",
   "properties": {
-    "id": {
-      "type": "string",
-      "description": "Unique ID of the item record"
-    },
-    "barcode": {
-      "type": "string",
-      "description": "Unique inventory control number for physical resources, used largely for circulation purposes"
-    },
-    "title": {
-      "type": "string",
-      "description": "The primary title (or label) associated with the resource"
-    },
-    "callNumber": {
+    "item": {
+      "description": "Description",
       "type": "object",
-      "description": "Elements of a full call number generated from the item or holding",
-      "properties": {
-        "callNumber": {
-          "type": "string",
-          "description": "Effective Call Number is an identifier assigned to an item or its holding and associated with the item.",
-          "readonly": true
-        },
-        "prefix": {
-          "type": "string",
-          "description": "Effective Call Number Prefix is the prefix of the identifier assigned to an item or its holding and associated with the item.",
-          "readonly": true
-        },
-        "suffix": {
-          "type": "string",
-          "description": "Effective Call Number Suffix is the suffix of the identifier assigned to an item or its holding and associated with the item.",
-          "readonly": true
-        },
-        "typeId": {
-          "type": "string",
-          "description": "Effective Call Number Type Id is the call number type id of the item, if available, otherwise that of the holding.",
-          "$ref": "../common/uuid.json",
-          "readonly": true
-        }
-      },
-      "additionalProperties": false
+      "$ref": "item.json"
     },
-    "lastCheckIn": {
+    "holdingsRecord": {
+      "description": "Description",
       "type": "object",
-      "additionalProperties": false,
-      "description": "Information about when an item was last scanned in the Inventory app.",
-      "properties": {
-        "dateTime": {
-          "type": "string",
-          "description": "Date and time of the last check in of the item.",
-          "format": "date-time"
-        },
-        "servicePointId": {
-          "type": "string",
-          "description": "Service point ID being used by a staff member when item was scanned in Check in app.",
-          "$ref": "../common/uuid.json"
-        },
-        "staffMemberId": {
-          "type": "string",
-          "description": "ID a staff member who scanned the item",
-          "$ref": "../common/uuid.json"
-        }
-      }
+      "$ref": "holdingsRecord.json"
     },
-    "status": {
-      "description": "The status of the item",
+    "instance": {
+      "description": "Description",
       "type": "object",
-      "properties": {
-        "name": {
-          "description": "Name of the status e.g. Available, Checked out, In transit",
-          "type": "string",
-          "enum": [
-            "Aged to lost",
-            "Available",
-            "Awaiting pickup",
-            "Awaiting delivery",
-            "Checked out",
-            "Claimed returned",
-            "Declared lost",
-            "In process",
-            "In process (non-requestable)",
-            "In transit",
-            "Intellectual item",
-            "Long missing",
-            "Lost and paid",
-            "Missing",
-            "On order",
-            "Paged",
-            "Restricted",
-            "Order closed",
-            "Unavailable",
-            "Unknown",
-            "Withdrawn"
-          ]
-        },
-        "date": {
-          "description": "Date and time when the status was last changed",
-          "type": "string",
-          "format": "date-time",
-          "readonly": true
-        }
-      },
-      "required": [
-        "name"
-      ],
-      "additionalProperties": false
+      "$ref": "instance.json"
     },
-    "location": {
-      "type": "string",
-      "description": "Current home location for the item.",
-      "$ref": "location.json"
-    },
-    "permanentLocation": {
-      "type": "string",
-      "description": "Permanent item location is the default location, shelving location, or holding which is a physical place where items are stored, or an Online location.",
-      "$ref": "location.json"
+    "loanType": {
+      "description": "Description",
+      "type": "object",
+      "$ref": "loanType.json"
     },
     "materialType": {
-      "description": "Item's material type",
+      "description": "Description",
       "type": "object",
       "$ref": "materialType.json"
     },
-    "copyNumber": {
-      "type": "string",
-      "description": "Copy number is the piece identifier. The copy number reflects if the library has a copy of a single-volume monograph; one copy of a multi-volume, (e.g. Copy 1, or C.7.)"
-    },
-    "enumeration": {
-      "type": "string",
-      "description": "Enumeration is the descriptive information for the numbering scheme of a serial."
-    },
-    "volume": {
-      "type": "string",
-      "description": "Volume is intended for monographs when a multipart monograph (e.g. a biography of George Bernard Shaw in three volumes)."
-    },
-    "chronology": {
-      "type": "string",
-      "description": "Chronology is the descriptive information for the dating scheme of a serial."
-    },
-    "numberOfPieces": {
-      "type": "string",
-      "description": "Number of pieces. Used when an item is checked out or returned to verify that all parts are present (e.g. 7 CDs in a set)."
-    },
-    "descriptionOfPieces": {
-      "description": "Description of item pieces.",
-      "type": "string"
-    },
-    "yearCaption": {
-      "type": "array",
-      "description": "In multipart monographs, a caption is a character(s) used to label a level of chronology, e.g., year 1985.",
-      "items": {
-        "type": "string"
-      },
-      "uniqueItems": true
-    },
-    "loanType": {
-      "description": "The permanent loan type, is the default loan type for a given item. Loan types are tenant-defined.",
+    "location": {
+      "description": "Description",
       "type": "object",
-      "$ref": "loanType.json"
+      "$ref": "location.json"
+    },
+    "institution": {
+      "description": "Description",
+      "type": "object",
+      "$ref": "institution.json"
+    },
+    "campus": {
+      "description": "Description",
+      "type": "object",
+      "$ref": "campus.json"
+    },
+    "library": {
+      "description": "Description",
+      "type": "object",
+      "$ref": "library.json"
+    },
+    "primaryServicePoint": {
+      "description": "Description",
+      "type": "object",
+      "$ref": "servicePoint.json"
     }
   },
   "additionalProperties": false,
   "required": [
-    "id",
-    "permanentLoanType",
-    "materialType",
-    "status"
+    "item"
   ]
 }

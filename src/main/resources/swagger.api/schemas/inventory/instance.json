@@ -131,7 +131,6 @@
             "type": "object",
             "description": "Dereferenced contributor-name type",
             "javaType": "org.folio.rest.jaxrs.model.contributorNameTypeVirtual",
-            "readonly": true,
             "folio:$ref": "contributornametype.json",
             "readonly": true,
             "folio:isVirtual": true,
@@ -182,7 +181,6 @@
             "javaType": "org.folio.rest.jaxrs.model.classificationTypeVirtual",
             "readonly": true,
             "folio:$ref": "classificationtype.json",
-            "readonly": true,
             "folio:isVirtual": true,
             "folio:linkBase": "classification-types",
             "folio:linkFromField": "classificationTypeId",
@@ -287,10 +285,18 @@
         ]
       }
     },
-    "instanceType": {
-      "description": "unique term for the resource type whether it's from the RDA content term list of locally defined",
-      "type": "object",
-      "$ref": "instanceType.json"
+    "instanceTypeId": {
+      "type": "string",
+      "description": "UUID of the unique term for the resource type whether it's from the RDA content term list of locally defined",
+      "$ref": "../common/uuid.json"
+    },
+    "instanceFormatIds": {
+      "type": "array",
+      "description": "UUIDs for the unique terms for the format whether it's from the RDA carrier term list of locally defined",
+      "items": {
+        "type": "string",
+        "$ref": "../common/uuid.json"
+      }
     },
     "instanceFormats": {
       "type": "array",
@@ -299,7 +305,12 @@
         "type": "object",
         "$ref": "instanceFormat.json"
       },
-      "readonly": true
+      "readonly": true,
+      "folio:isVirtual": true,
+      "folio:linkBase": "instance-formats",
+      "folio:linkFromField": "instanceFormatIds",
+      "folio:linkToField": "id",
+      "folio:includedElement": "instanceFormats"
     },
     "physicalDescriptions": {
       "type": "array",
@@ -318,7 +329,7 @@
     },
     "notes": {
       "type": "array",
-      "description": "Bibliographic notes (e.g. general notes, specialized notes), and administrative notes",
+      "description": "Bibliographic notes (e.g. general notes, specialized notes)",
       "items": {
         "type": "object",
         "properties": {
@@ -338,6 +349,14 @@
         }
       }
     },
+    "administrativeNotes":{
+      "type": "array",
+      "description": "Administrative notes",
+      "minItems": 0,
+      "items": {
+        "type": "string"
+      }
+    },
     "modeOfIssuanceId": {
       "type": "string",
       "description": "UUID of the RDA mode of issuance, a categorization reflecting whether a resource is issued in one or more parts, the way it is updated, and whether its termination is predetermined or not (e.g. monograph,  sequential monograph, serial; integrating Resource, other)",
@@ -350,7 +369,7 @@
     "previouslyHeld": {
       "type": "boolean",
       "description": "Records the fact that the resource was previously held by the library for things like Hathi access, etc.",
-      "default":"false"
+      "default": false
     },
     "staffSuppress": {
       "type": "boolean",
@@ -396,6 +415,20 @@
       "$ref": "../common/metadata.json",
       "readonly": true
     },
+    "holdingsRecords2": {
+      "type": "array",
+      "description": "List of holdings records",
+      "items": {
+        "type": "object",
+        "$ref": "holdingsRecord.json"
+      },
+      "readonly": true,
+      "folio:isVirtual": true,
+      "folio:linkBase": "holdings-storage/holdings",
+      "folio:linkFromField": "id",
+      "folio:linkToField": "instanceId",
+      "folio:includedElement": "holdingsRecords"
+    },
     "natureOfContentTermIds": {
       "type": "array",
       "description": "Array of UUID for the Instance nature of content (e.g. bibliography, biography, exhibition catalogue, festschrift, newspaper, proceedings, research report, thesis or website)",
@@ -411,6 +444,6 @@
   "required": [
     "source",
     "title",
-    "instanceType"
+    "instanceTypeId"
   ]
 }
