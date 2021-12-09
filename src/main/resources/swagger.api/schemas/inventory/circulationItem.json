@@ -3,59 +3,157 @@
   "description": "A circulation item - aggregation of item, instance and holding",
   "type": "object",
   "properties": {
-    "item": {
-      "description": "Description",
-      "type": "object",
-      "$ref": "item.json"
+    "id": {
+      "type": "string",
+      "description": "Unique ID of the item record",
+      "$ref": "../common/uuid.json"
     },
-    "holdingsRecord": {
-      "description": "Description",
-      "type": "object",
-      "$ref": "holdingsRecord.json"
+    "barcode": {
+      "type": "string",
+      "description": "Unique inventory control number for physical resources, used largely for circulation purposes"
     },
-    "instance": {
-      "description": "Description",
-      "type": "object",
-      "$ref": "instance.json"
+    "title": {
+      "type": "string",
+      "description": "The primary title (or label) associated with the resource"
     },
-    "loanType": {
-      "description": "Description",
-      "type": "object",
-      "$ref": "loanType.json"
+    "holdingsRecordId": {
+      "type": "string",
+      "description": "ID of the holdings record the item is a member of",
+      "$ref": "../common/uuid.json"
     },
-    "materialType": {
-      "description": "Description",
-      "type": "object",
-      "$ref": "materialType.json"
+    "instanceId": {
+      "description": "Inventory instances identifier",
+      "type": "string",
+      "$ref": "../common/uuid.json"
     },
-    "location": {
-      "description": "Description",
-      "type": "object",
-      "$ref": "location.json"
+    "contributors": {
+      "type": "array",
+      "description": "List of contributor names",
+      "minItems": 0,
+      "items": {
+        "type": "string",
+        "description": "Name of contributor"
+      }
     },
-    "institution": {
-      "description": "Description",
-      "type": "object",
-      "$ref": "institution.json"
+    "callNumber": {
+      "type": "string",
+      "description": "Effective Call Number is an identifier assigned to an item or its holding and associated with the item."
     },
-    "campus": {
-      "description": "Description",
-      "type": "object",
-      "$ref": "campus.json"
+    "callNumberPrefix": {
+      "type": "string",
+      "description": "Effective Call Number Prefix is the prefix of the identifier assigned to an item or its holding and associated with the item."
     },
-    "library": {
-      "description": "Description",
-      "type": "object",
-      "$ref": "library.json"
+    "callNumberSuffix": {
+      "type": "string",
+      "description": "Effective Call Number Suffix is the suffix of the identifier assigned to an item or its holding and associated with the item."
     },
-    "primaryServicePoint": {
-      "description": "Description",
-      "type": "object",
-      "$ref": "servicePoint.json"
+    "status": {
+      "description": "Status of the item",
+      "type": "string",
+      "enum": [
+        "Aged to lost",
+        "Available",
+        "Awaiting pickup",
+        "Awaiting delivery",
+        "Checked out",
+        "Claimed returned",
+        "Declared lost",
+        "In process",
+        "In process (non-requestable)",
+        "In transit",
+        "Intellectual item",
+        "Long missing",
+        "Lost and paid",
+        "Missing",
+        "On order",
+        "Paged",
+        "Restricted",
+        "Order closed",
+        "Unavailable",
+        "Unknown",
+        "Withdrawn"
+      ]
+    },
+    "copyNumber": {
+      "type": "string",
+      "description": "Copy number is the piece identifier. The copy number reflects if the library has a copy of a single-volume monograph; one copy of a multi-volume, (e.g. Copy 1, or C.7.)"
+    },
+    "enumeration": {
+      "type": "string",
+      "description": "Enumeration is the descriptive information for the numbering scheme of a serial."
+    },
+    "volume": {
+      "type": "string",
+      "description": "Volume is intended for monographs when a multipart monograph (e.g. a biography of George Bernard Shaw in three volumes)."
+    },
+    "chronology": {
+      "type": "string",
+      "description": "Chronology is the descriptive information for the dating scheme of a serial."
+    },
+    "numberOfPieces": {
+      "type": "string",
+      "description": "Number of pieces. Used when an item is checked out or returned to verify that all parts are present (e.g. 7 CDs in a set)."
+    },
+    "descriptionOfPieces": {
+      "description": "Description of item pieces.",
+      "type": "string"
+    },
+    "yearCaption": {
+      "type": "array",
+      "description": "In multipart monographs, a caption is a character(s) used to label a level of chronology, e.g., year 1985.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "materialTypeName": {
+      "description": "Item's material type",
+      "type": "string"
+    },
+    "materialTypeId": {
+      "type": "string",
+      "description": "Material type, term. Define what type of thing the item is.",
+      "$ref": "../common/uuid.json"
+    },
+    "permanentLoanTypeId": {
+      "type": "string",
+      "description": "The permanent loan type, is the default loan type for a given item. Loan types are tenant-defined.",
+      "$ref": "../common/uuid.json"
+    },
+    "temporaryLoanTypeId": {
+      "type": "string",
+      "description": "Temporary loan type, is the temporary loan type for a given item.",
+      "$ref": "../common/uuid.json"
+    },
+    "locationId": {
+      "type": "string",
+      "description": "Current home location for the item.",
+      "$ref": "../common/uuid.json"
+    },
+    "institutionId": {
+      "description": "The UUID of the institution, the first-level location unit, this (shelf) location belongs to.",
+      "type": "string",
+      "$ref": "../common/uuid.json"
+    },
+    "campusId": {
+      "description": "The UUID of the campus, the second-level location unit, this (shelf) location belongs to.",
+      "type": "string",
+      "$ref": "../common/uuid.json"
+    },
+    "libraryId": {
+      "description": "The UUID of the library, the third-level location unit, this (shelf) location belongs to.",
+      "type": "string",
+      "$ref": "../common/uuid.json"
+    },
+    "locationName": {
+      "description": "Name of the (shelf) location",
+      "type": "string"
     }
   },
   "additionalProperties": false,
   "required": [
-    "item"
+    "id",
+    "barcode",
+    "status"
   ]
 }

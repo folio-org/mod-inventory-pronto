@@ -20,16 +20,14 @@ spring:
     enabled: true
   jackson:
     default-property-inclusion: NON_EMPTY
-#    default-property-inclusion: ALWAYS
-feign:
-  client:
-    config:
-      pwned-passwords:
-        logger-level: full
 folio:
   tenant:
     validation:
       enabled: true
+  logging:
+    request:
+      enabled: true
+      level: basic
 management:
   endpoints:
     web:

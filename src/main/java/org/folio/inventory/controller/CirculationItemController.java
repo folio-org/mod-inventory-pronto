@@ -1,7 +1,6 @@
 package org.folio.inventory.controller;
 
 import org.folio.inventory.domain.dto.CirculationItem;
-import org.folio.inventory.domain.dto.CirculationItems;
 import org.folio.inventory.rest.resource.CirculationItemsApi;
 import org.folio.inventory.service.CirculationItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +23,11 @@ public class CirculationItemController implements CirculationItemsApi {
 
   @Override
   public ResponseEntity<CirculationItem> getCirculationItemByBarcode(String barcode) {
-    return circulationItemService.getCirculationItem(barcode)
-      .map(item -> new ResponseEntity<>(item, HttpStatus.OK))
-      .orElseGet(() -> ResponseEntity.notFound().build());
+    CirculationItem circulationItem = circulationItemService.getCirculationItem(barcode);
+
+    return circulationItem != null
+      ? new ResponseEntity<>(circulationItem, HttpStatus.OK)
+      : ResponseEntity.notFound().build();
   }
 
-  @Override
-  public ResponseEntity<CirculationItems> getCirculationItems(String barcode) {
-    return CirculationItemsApi.super.getCirculationItems(barcode);
-  }
 }

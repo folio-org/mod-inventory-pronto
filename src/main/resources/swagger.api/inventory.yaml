@@ -6,25 +6,25 @@ info:
 servers:
   - url: http://localhost/
 paths:
-  /circulation-items/:
-    get:
-      description: Get items
-      operationId: getCirculationItems
-      parameters:
-        - name: barcode
-          description: Item barcode
-          in: query
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Items list
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/circulationItems"
-        "500":
-          $ref: "#/components/responses/trait_validate_500"
+#  /circulation-items/:
+#    get:
+#      description: Get items
+#      operationId: getCirculationItems
+#      parameters:
+#        - name: barcode
+#          description: Item barcode
+#          in: query
+#          schema:
+#            type: string
+#      responses:
+#        "200":
+#          description: Items list
+#          content:
+#            application/json:
+#              schema:
+#                $ref: "#/components/schemas/circulationItems"
+#        "500":
+#          $ref: "#/components/responses/trait_validate_500"
   /circulation-items/{itemBarcode}:
     get:
       description: Get circulation item by barcode
@@ -45,23 +45,20 @@ paths:
                 $ref: "#/components/schemas/circulationItem"
         "404":
           $ref: "#/components/responses/trait_validate_404"
-        "500":
+        '422':
+          $ref: "#/components/responses/trait_validate_422"
+        '500':
           $ref: "#/components/responses/trait_validate_500"
-
 components:
   schemas:
     circulationItem:
       $ref: schemas/inventory/circulationItem.json
     circulationItems:
       $ref: schemas/inventory/circulationItems.json
-    item:
-      $ref: schemas/inventory/item.json
-    holdingsRecord:
-      $ref: schemas/inventory/holdingsRecord.json
-    instance:
-        $ref: schemas/inventory/instance.json
     error:
       $ref: schemas/common/error.json
+    errors:
+      $ref: schemas/common/errors.json
   responses:
     trait_validate_404:
       description: Not found error
@@ -70,9 +67,17 @@ components:
           example: examples/error.sample
           schema:
             $ref: "#/components/schemas/error"
+    trait_validate_422:
+      description: Validation errors
+      content:
+        application/json:
+          example: examples/errors.sample
+          schema:
+            $ref: "#/components/schemas/errors"
     trait_validate_500:
       description: Internal server error
       content:
         text/plain:
           schema:
-            $ref: "#/components/schemas/error"
+            type: string
+            example: Internal server error
