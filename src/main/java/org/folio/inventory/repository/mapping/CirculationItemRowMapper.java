@@ -29,21 +29,20 @@ public class CirculationItemRowMapper implements RowMapper<CirculationItem> {
         .enumeration(resultSet.getString("enumeration"))
         .volume(resultSet.getString("volume"))
         .chronology(resultSet.getString("chronology"))
-        .copyNumber(resultSet.getString("copyNumber"))
-        .numberOfPieces(resultSet.getString("numberOfPieces"))
-        .descriptionOfPieces(resultSet.getString("descriptionOfPieces"))
+        .itemLevelCopyNumber(resultSet.getString("itemLevelCopyNumber"))
+        .holdingsLevelCopyNumber(resultSet.getString("holdingsLevelCopyNumber"))
         .yearCaption(new HashSet<>(arrayToList(resultSet, "yearCaption")))
         .permanentLoanTypeId(resultSet.getString("permanentLoanTypeId"))
         .temporaryLoanTypeId(resultSet.getString("temporaryLoanTypeId"))
         .materialTypeName(resultSet.getString("materialTypeName"))
         .materialTypeId(resultSet.getString("materialTypeId"))
-        .locationId(resultSet.getString("locationId"))
+        .effectiveLocationId(resultSet.getString("effectiveLocationId"))
+        .effectiveLocationName(resultSet.getString("effectiveLocationName"))
         .institutionId(resultSet.getString("institutionId"))
         .campusId(resultSet.getString("campusId"))
-        .libraryId(resultSet.getString("libraryId"))
-        .locationName(resultSet.getString("locationName"));
+        .libraryId(resultSet.getString("libraryId"));
     } catch (SQLException e) {
-      throw new RuntimeException("Failed to build circulation item: " + e.getMessage());
+      throw new RuntimeException("Failed to build circulation item", e);
     }
   }
 

@@ -74,9 +74,13 @@
         "Withdrawn"
       ]
     },
-    "copyNumber": {
+    "itemLevelCopyNumber": {
       "type": "string",
       "description": "Copy number is the piece identifier. The copy number reflects if the library has a copy of a single-volume monograph; one copy of a multi-volume, (e.g. Copy 1, or C.7.)"
+    },
+    "holdingsLevelCopyNumber": {
+      "type": "string",
+      "description": "Item/Piece ID (usually barcode) for systems that do not use item records. Ability to designate the copy number if institution chooses to use copy numbers."
     },
     "enumeration": {
       "type": "string",
@@ -89,14 +93,6 @@
     "chronology": {
       "type": "string",
       "description": "Chronology is the descriptive information for the dating scheme of a serial."
-    },
-    "numberOfPieces": {
-      "type": "string",
-      "description": "Number of pieces. Used when an item is checked out or returned to verify that all parts are present (e.g. 7 CDs in a set)."
-    },
-    "descriptionOfPieces": {
-      "description": "Description of item pieces.",
-      "type": "string"
     },
     "yearCaption": {
       "type": "array",
@@ -125,10 +121,14 @@
       "description": "Temporary loan type, is the temporary loan type for a given item.",
       "$ref": "../common/uuid.json"
     },
-    "locationId": {
+    "effectiveLocationId": {
       "type": "string",
       "description": "Current home location for the item.",
       "$ref": "../common/uuid.json"
+    },
+    "effectiveLocationName": {
+      "description": "Name of the (shelf) location",
+      "type": "string"
     },
     "institutionId": {
       "description": "The UUID of the institution, the first-level location unit, this (shelf) location belongs to.",
@@ -144,10 +144,6 @@
       "description": "The UUID of the library, the third-level location unit, this (shelf) location belongs to.",
       "type": "string",
       "$ref": "../common/uuid.json"
-    },
-    "locationName": {
-      "description": "Name of the (shelf) location",
-      "type": "string"
     }
   },
   "additionalProperties": false,
