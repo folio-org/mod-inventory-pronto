@@ -24,8 +24,8 @@ location.campusId as campusId,
 location.libraryId as libraryId,
 location.jsonb->>'name' as effectiveLocationName
 from %1$s.item
-inner join %1$s.holdings_record hr on hr.id = item.holdingsRecordId
-inner join %1$s.instance on instance.id = hr.instanceId
-inner join %1$s.material_type on material_type.id = item.materialTypeId
-inner join %1$s.location on location.id = item.effectiveLocationId
+left join %1$s.holdings_record hr on hr.id = item.holdingsRecordId
+left join %1$s.instance on instance.id = hr.instanceId
+left join %1$s.material_type on material_type.id = item.materialTypeId
+left join %1$s.location on location.id = item.effectiveLocationId
 where lower(item.jsonb->>'barcode') = lower('%2$s');
