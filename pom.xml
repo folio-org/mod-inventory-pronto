@@ -27,7 +27,8 @@
     <folio-spring-base.version>2.0.0</folio-spring-base.version>
     <openapi-generator.version>5.3.0</openapi-generator.version>
 
-    <inventory.yaml.file>${project.basedir}/src/main/resources/swagger.api/inventory.yaml</inventory.yaml.file>
+    <schemas.folder>${project.build.directory}/schemas</schemas.folder>
+    <inventory.yaml.file>${schemas.folder}/swagger.api/inventory.yaml</inventory.yaml.file>
 
     <sonar.exclusions>
       src/main/java/org/folio/inventory/domain/**,
@@ -37,6 +38,12 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.folio</groupId>
+      <artifactId>folio-core-schema</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+
     <dependency>
       <groupId>org.folio</groupId>
       <artifactId>folio-spring-base</artifactId>
@@ -82,7 +89,6 @@
 
   <build>
     <plugins>
-
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
@@ -159,7 +165,7 @@
         <version>3.2.0</version>
         <executions>
           <execution>
-            <phase>generate-sources</phase>
+            <phase>generate-resources</phase>
             <goals>
               <goal>add-source</goal>
             </goals>
@@ -167,6 +173,56 @@
               <sources>
                 <source>${project.build.directory}/generated-sources</source>
               </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- OpenApi schema build -->
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>unpack-schemas</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.folio</groupId>
+                  <artifactId>folio-core-schema</artifactId>
+                  <version>1.0.0</version>
+                  <type>jar</type>
+                </artifactItem>
+              </artifactItems>
+              <includes>**/*.json</includes>
+              <outputDirectory>${schemas.folder}</outputDirectory>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>true</overWriteSnapshots>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>copy-local-schemas</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${schemas.folder}/swagger.api</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/src/main/resources/swagger.api</directory>
+                </resource>
+              </resources>
             </configuration>
           </execution>
         </executions>
@@ -192,6 +248,8 @@
               <generateApiTests>true</generateApiTests>
               <generateApiDocumentation>true</generateApiDocumentation>
               <generateModels>true</generateModels>
+              <modelsToGenerate>circulationItem,circulationItems</modelsToGenerate>
+              <importMappings>error=org.folio.core.domain.Error,errors=org.folio.core.domain.Errors</importMappings>
               <generateModelTests>false</generateModelTests>
               <generateSupportingFiles>true</generateSupportingFiles>
               <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>

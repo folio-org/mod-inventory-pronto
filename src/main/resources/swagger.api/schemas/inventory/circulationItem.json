@@ -6,7 +6,7 @@
     "id": {
       "type": "string",
       "description": "Unique ID of the item record",
-      "$ref": "../common/uuid.json"
+      "$ref": "../core/uuid.json"
     },
     "barcode": {
       "type": "string",
@@ -19,12 +19,12 @@
     "holdingsRecordId": {
       "type": "string",
       "description": "ID of the holdings record the item is a member of",
-      "$ref": "../common/uuid.json"
+      "$ref": "../core/uuid.json"
     },
     "instanceId": {
       "description": "Inventory instances identifier",
       "type": "string",
-      "$ref": "../common/uuid.json"
+      "$ref": "../core/uuid.json"
     },
     "contributors": {
       "type": "array",
@@ -109,22 +109,22 @@
     "materialTypeId": {
       "type": "string",
       "description": "Material type, term. Define what type of thing the item is.",
-      "$ref": "../common/uuid.json"
+      "$ref": "../core/uuid.json"
     },
     "permanentLoanTypeId": {
       "type": "string",
       "description": "The permanent loan type, is the default loan type for a given item. Loan types are tenant-defined.",
-      "$ref": "../common/uuid.json"
+      "$ref": "../core/uuid.json"
     },
     "temporaryLoanTypeId": {
       "type": "string",
       "description": "Temporary loan type, is the temporary loan type for a given item.",
-      "$ref": "../common/uuid.json"
+      "$ref": "../core/uuid.json"
     },
     "effectiveLocationId": {
       "type": "string",
       "description": "Current home location for the item.",
-      "$ref": "../common/uuid.json"
+      "$ref": "../core/uuid.json"
     },
     "effectiveLocationName": {
       "description": "Name of the (shelf) location",
@@ -133,17 +133,17 @@
     "institutionId": {
       "description": "The UUID of the institution, the first-level location unit, this (shelf) location belongs to.",
       "type": "string",
-      "$ref": "../common/uuid.json"
+      "$ref": "../core/uuid.json"
     },
     "campusId": {
       "description": "The UUID of the campus, the second-level location unit, this (shelf) location belongs to.",
       "type": "string",
-      "$ref": "../common/uuid.json"
+      "$ref": "../core/uuid.json"
     },
     "libraryId": {
       "description": "The UUID of the library, the third-level location unit, this (shelf) location belongs to.",
       "type": "string",
-      "$ref": "../common/uuid.json"
+      "$ref": "../core/uuid.json"
     }
   },
   "additionalProperties": false,

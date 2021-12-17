@@ -6,25 +6,6 @@ info:
 servers:
   - url: http://localhost/
 paths:
-#  /circulation-items/:
-#    get:
-#      description: Get items
-#      operationId: getCirculationItems
-#      parameters:
-#        - name: barcode
-#          description: Item barcode
-#          in: query
-#          schema:
-#            type: string
-#      responses:
-#        "200":
-#          description: Items list
-#          content:
-#            application/json:
-#              schema:
-#                $ref: "#/components/schemas/circulationItems"
-#        "500":
-#          $ref: "#/components/responses/trait_validate_500"
   /circulation-items/{itemBarcode}:
     get:
       description: Get circulation item by barcode
@@ -56,9 +37,9 @@ components:
     circulationItems:
       $ref: schemas/inventory/circulationItems.json
     error:
-      $ref: schemas/common/error.json
+      $ref: schemas/core/error.json
     errors:
-      $ref: schemas/common/errors.json
+      $ref: schemas/core/errors.json
   responses:
     trait_validate_404:
       description: Not found error
