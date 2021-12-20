@@ -1,5 +1,6 @@
 package org.folio.inventory.util;
 
+import java.io.File;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -23,6 +24,7 @@ public class FileUtils {
     }
 
     try (Stream<String> lines = Files.lines(Paths.get(resource.toURI()))) {
+      log.info("File exists: " + new File(resource.toURI()).exists());
       return lines.collect(Collectors.joining(System.lineSeparator()));
     } catch (Exception e) {
       throw new IllegalArgumentException("Failed to read contents of the file: " + filePath, e);
