@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j2;
 public class InventoryStorageRepositoryImpl implements InventoryStorageRepository {
   private static final String SCHEMA_NAME_TEMPLATE = "%s_mod_inventory_storage";
   private static final String QUERY_TEMPLATE_FILE_PATH =
-    "db/query/select_circulation_item_by_barcode_template.sql";
+    "/db/query/select_circulation_item_by_barcode_template.sql";
 
   private static String queryTemplate;
 
