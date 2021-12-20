@@ -1,10 +1,8 @@
 package org.folio.inventory.util;
 
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
@@ -16,16 +14,22 @@ public class FileUtils {
   public static String readFile(String filePath) {
     log.info("Reading file: {}", filePath);
 
-    final URL resource = FileUtils.class.getClassLoader().getResource(filePath);
+    try (InputStream inputStream = FileUtils.class.getClassLoader().getResourceAsStream(filePath)) {
+      if (inputStream == null) {
+        throw new IllegalArgumentException("Failed to read resource: " + filePath);
+      }
 
-    if (resource == null) {
-      throw new IllegalArgumentException("Failed to access the resource: " + filePath);
-    }
+      StringBuilder stringBuilder = new StringBuilder();
+      BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+      String line;
+      while ((line = reader.readLine()) != null) {
+         stringBuilder.append(line).append(System.lineSeparator());
+      }
 
-    try (Stream<String> lines = Files.lines(Paths.get(resource.toURI()))) {
-      return lines.collect(Collectors.joining(System.lineSeparator()));
+      return stringBuilder.toString();
     } catch (Exception e) {
       throw new IllegalArgumentException("Failed to read contents of the file: " + filePath, e);
     }
   }
+
 }
