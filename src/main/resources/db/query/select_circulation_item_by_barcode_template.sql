@@ -1,6 +1,6 @@
 select item.id as id,
-item.jsonb->>'barcode' as barcode, 
-item.jsonb->'status'->>'name' as status, 
+item.jsonb->>'barcode' as barcode,
+item.jsonb->'status'->>'name' as status,
 item.holdingsRecordId as holdingsRecordId,
 hr.instanceId as instanceId,
 instance.jsonb->>'title' as title,
